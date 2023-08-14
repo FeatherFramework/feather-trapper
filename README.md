@@ -12,7 +12,7 @@ This script manages all aspects of hunting with Feather Core system. This includ
 
 - The price is determined by the quality of the animal and hide. An animal that is cleanly killed sells for a higher price than one that is damaged by the player.
 
-- The sale value of legendary hides is taken into consideration.
+- The sale value of legendary hides are taken into consideration.
 
 ## Screenshots
 
@@ -28,7 +28,7 @@ This script manages all aspects of hunting with Feather Core system. This includ
 ## How-to-configure
 
 - The configuration for prices and non-playable characters (NPC) butchers can be found in `shared/data/butchers.lua`.
-- The configuration for the animal's loots can be found in `shared/data/loots.lua`.
+- The configuration for the animal's loot can be found in `shared/data/loots.lua`.
 
 ## Disclaimers and Credits
 Thanks to BCC and Feather Team
