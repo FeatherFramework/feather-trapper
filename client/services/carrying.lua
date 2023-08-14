@@ -39,7 +39,7 @@ Citizen.CreateThread(function()
 
 
             -- Check conditions to display the load prompt to the player
-            if sDistance < 2 and (somethingToLoad and isPelt and not IsXLargePelt(somethingToLoadModel)) and (not ent.state.pelt3 or not ent.state.pelt2 or not ent.state.pelt1) then
+            if sDistance < 2 and (somethingToLoad and isPelt and not IsXLargePelt(somethingToLoadModel) and somethingToLoadQuality ~= false) and (not ent.state.pelt3 or not ent.state.pelt2 or not ent.state.pelt1) then
                 PromptGroup:ShowGroup("Horse")
                 horseprompt:TogglePrompt(true)
             else
@@ -53,14 +53,14 @@ Citizen.CreateThread(function()
                 -- Storing pelts on the horse in order of availability
                 if ent.state.pelt1 then
                     if ent.state.pelt2 then
-                        ent.state:set('pelt3', { somethingToLoad, somethingToLoadQuality, somethingToLoadModel }, true)
+                        ent.state:set('pelt3', { somethingToLoad, somethingToLoadQuality, somethingToLoadModel, Entity(somethingToLoad).state.isLegendary }, true)
                         print("Load pelt :", Dump(ent.state.pelt3))
                     else
-                        ent.state:set('pelt2', { somethingToLoad, somethingToLoadQuality, somethingToLoadModel }, true)
+                        ent.state:set('pelt2', { somethingToLoad, somethingToLoadQuality, somethingToLoadModel, Entity(somethingToLoad).state.isLegendary}, true)
                         print("Load pelt :", Dump(ent.state.pelt2))
                     end
                 else
-                    ent.state:set('pelt1', { somethingToLoad, somethingToLoadQuality, somethingToLoadModel }, true)
+                    ent.state:set('pelt1', { somethingToLoad, somethingToLoadQuality, somethingToLoadModel,Entity(somethingToLoad).state.isLegendary }, true)
                     print("Load pelt :", Dump(ent.state.pelt1))
                 end
             end

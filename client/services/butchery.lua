@@ -9,9 +9,10 @@ Citizen.CreateThread(function()
         Citizen.Wait(0)
         if NetworkIsPlayerActive(PlayerId()) then
             playerSpawned = true
-            Citizen.Wait(15000) -- TODO ADD the character is spawned
+            Citizen.Wait(5000) -- TODO ADD the character is spawned
         end
     end
+
     for _, butcher in ipairs(Butchers.npc) do
         -- Create a butcher NPC at the specified coordinates with specific attributes.
         local npc = Feather.Ped:Create(butcher.model, butcher.coords.x, butcher.coords.y, butcher.coords.z,
@@ -54,7 +55,7 @@ Citizen.CreateThread(function()
             local butcherCoords = butcher:GetCoords()
             local sDistance = #(playerCoords - butcherCoords)
 
-            if sDistance < 3 and (Citizen.InvokeNative(0xA911EE21EDF69DAF, PlayerPedId()) or Citizen.InvokeNative(0xA911EE21EDF69DAF, lastMount)) then
+            if sDistance < 3 then
                 nearButcher = true
                 currentButcher = butcher
                 break
@@ -147,7 +148,7 @@ function IsPlayerCarryingEntity()
     end
 
     -- TODO: Implement code to inform the server and give money to the player.
-     DeleteEntity(entity)
+    DeleteEntity(entity)
 end
 
 function IsLastMountCarryingEntity(lastMount)
@@ -160,10 +161,29 @@ function IsLastMountCarryingEntity(lastMount)
 
     local function handleEntitySale(entity)
         if Citizen.InvokeNative(0x255B6DB4E3AD3C3E, entity) then
-            local entityHash = Citizen.InvokeNative(0x31FEF6A20F00B963, entity)
-            local model, qualityType = FindPeltQuality(entityHash)
-            local displayedPrice = calculatePrice(model, 'skin', qualityType)
-            print('You sold ' .. (qualityType or 'skin') .. ' pelt for $' .. displayedPrice)
+            if Entity(entity).state.isLegendary then
+                local entityHash = Citizen.InvokeNative(0x31FEF6A20F00B963, entity)
+                local model, qualityType = FindPeltQuality(entityHash)
+                qualityType = 'legend'
+                if model then
+                    local priceType = qualityType or 'skin'
+                    local displayedPrice = calculatePrice(model, 'skin', qualityType)
+                    print('You sold legendary animal pelt ' .. priceType .. ' for $' .. displayedPrice)
+                else
+                    if entityHash == false then
+                        local priceType = qualityType or 'skin'
+                        local displayedPrice = calculatePrice('default', 'skin', qualityType)
+                        print('You sold legendary animal pelt ' .. priceType .. ' for $' .. displayedPrice)
+                    else
+                        print("The legendary skin is not known from the sales list: ", entityHash)
+                    end
+                end
+            else
+                local entityHash = Citizen.InvokeNative(0x31FEF6A20F00B963, entity)
+                local model, qualityType = FindPeltQuality(entityHash)
+                local displayedPrice = calculatePrice(model, 'skin', qualityType)
+                print('You sold ' .. (qualityType or 'skin') .. ' pelt for $' .. displayedPrice)
+            end
             DeleteEntity(entity)
         elseif Citizen.InvokeNative(0xEC9A1261BF0CE510, entity) == 3 then
             local model = GetEntityModel(entity)
@@ -180,9 +200,20 @@ function IsLastMountCarryingEntity(lastMount)
 
     local function handlePeltSale(peltData, peltName)
         if peltData then
-            local model, qualityType = FindPeltQuality(peltData[2])
-            local displayedPrice = calculatePrice(model, 'skin', qualityType)
-            print(model .. ' ' .. (qualityType or 'skin') .. ' ' .. displayedPrice)
+            if peltData[4] then
+                local model, qualityType = FindPeltQuality(peltData[2])
+                qualityType = 'legend'
+                if model then
+                    local displayedPrice = calculatePrice(model, 'skin', qualityType)
+                    print(model .. ' ' .. (qualityType or 'skin') .. ' ' .. displayedPrice)
+                else
+                    print("The legendary skin is not known from the sales list: ", peltData[2])
+                end
+            else
+                local model, qualityType = FindPeltQuality(peltData[2])
+                local displayedPrice = calculatePrice(model, 'skin', qualityType)
+                print(model .. ' ' .. (qualityType or 'skin') .. ' ' .. displayedPrice)
+            end
             Citizen.InvokeNative(0x627F7F3A0C4C51FF, lastMount, peltData[2])
             Entity(lastMount).state:set(peltName, nil, true)
         end
