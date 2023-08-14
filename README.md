@@ -1,9 +1,14 @@
 # feather-trapper
-This script manages all aspects of hunting with Feather Core system. This includes skinning, butchering, and transporting various animal skins and bodies while on horseback.
+
+> This script manages all aspects of hunting with Feather Core system. This includes skinning, butchering, and transporting various animal skins and bodies while on horseback.
 
 ## Features
 - Spawn a legendary animal : ``CreateLegendaryAnimal`` can be called using the following parameters: ``modelHash``, ``outfit``, ``coords``, ``isnetwork``, ``haveBlip``.
-   
+
+    ```lua
+     local animal = CreateLegendaryAnimal('a_c_buck_01', 1, vector4(-350.03, 786.39, 115.94, 149.6), true, true)
+     ```
+    
 - When you kill animals, you will be able to choose to butcher them to receive the associated items in the loots table.
 
 - There are butchers present on the map, which enables you to sell hides and animals in exchange for money. You will be offered a sale prompt if you or your last mount is carrying an animal or hide.
