@@ -1,0 +1,35 @@
+fx_version "adamant"
+games { "rdr3" }
+rdr3_warning "I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships."
+lua54 "yes"
+
+description 'This script manages all aspects of hunting with Feather Core system. This includes skinning, butchering, and transporting various animal skins and bodies while on horseback.'
+author 'BCC Scripts'
+name 'feather-trapper'
+version '0.0.1'
+github ''
+github_type ''
+
+shared_scripts {
+    "/config.lua",
+    "/shared/helpers/*.lua",
+    "/shared/services/*.lua",
+    "/shared/data/*.lua",
+}
+
+server_scripts {
+    "/server/helpers/*.lua",
+    "/server/controllers/*.lua",
+    "/server/services/*.lua",
+    "/server/main.lua"
+}
+
+client_scripts {
+    "/client/helpers/*.lua",
+    "/client/services/*.lua",
+    "/client/main.lua"
+}
+
+dependencies {
+    'feather-core'
+}
