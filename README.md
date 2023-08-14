@@ -6,7 +6,8 @@
 - Spawn a legendary animal : ``CreateLegendaryAnimal`` can be called using the following parameters: ``modelHash``, ``outfit``, ``coords``, ``isnetwork``, ``haveBlip``.
 
     ```lua
-    exports['feather-trapper'].CreateLegendaryAnimal('a_c_buck_01', 1, vector4(-350.03, 786.39, 115.94, 149.6), true, true)
+        Legendary = exports['feather-trapper'].legendaryAnimal()
+        Legendary:CreateLegendaryAnimal('a_c_buck_01', 1, -350.03, 786.39, 115.94, true, true)
      ```
     
 - When you kill animals, you will be able to choose to butcher them to receive the associated items in the loots table.
