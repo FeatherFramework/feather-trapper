@@ -30,7 +30,7 @@ PeltQuality = {
     [-1098441944]  = { poor = 1868576868, good = 1636891382, perfect = -217731719 },  -- Moose
 
     -- Legendaries MP Pelt
-    [-1433814131]  = { iguga = 832214437, maza = 397926876, sapa = 219794592 },
+    [-1433814131]  = { iguga = 832214437, maza = 397926876, sapa = 219794592 },          -- Cougar
     [-915290938]   = { winyan = -1087205695, tatanka = -260181673, payta = -857265622 }, -- Buffalo
     [-1754211037]  = { patauger = -308200059, snow = -1218522879, shadow = 923422806 },  -- Buck
     [674287411]    = { teca = -1924159110, gold = -1621144167, bande = -1061253029 },    -- Alligator
@@ -108,9 +108,6 @@ PeltQuality = {
     [2410477101]  = { poor = nil, good = nil, perfect = nil },
     [543892122]   = { poor = nil, good = nil, perfect = nil },
     [1702636991]  = { poor = nil, good = nil, perfect = nil },
-
-
-
 }
 
 CarcassQuality = {
